@@ -1,0 +1,23 @@
+---
+title: Monte Carlo Tree Search
+---
+
+
+蒙特卡洛树搜索用随机采样替代穷举扩展，使其在分支因子较大的领域中依然有效。本章涵盖核心算法及其最常用的变体。
+
+## 推荐阅读顺序
+
+1. MCTS — 核心循环（选择、扩展、模拟、回溯）
+2. UCT — 基于 UCB1 的选择策略，使 MCTS 具备实用性
+
+
+<div class="btn-group">
+  <a href="./mcts" class="btn btn-secondary">MCTS</a>
+  <a href="./uct" class="btn btn-secondary">UCT</a>
+</div>
+
+## 与其他章节的关系
+
+- 建立在第 1 章的搜索概念之上（尤其是 Minimax 和迭代加深）。
+- 与第 4 章 RL 相关联：MCTS 可以与学习到的价值/策略网络结合（如 AlphaZero）。
+- 第 5 章的 CFR 是针对不完全信息博弈的另一种基于采样的方法。

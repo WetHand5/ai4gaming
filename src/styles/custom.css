@@ -1,0 +1,175 @@
+/* Homepage: hide Starlight's auto-generated h1 panel since Hero has its own */
+/* Only when .hero section exists on the page */
+main:has(.hero) .content-panel:first-of-type {
+  display: none;
+}
+
+/* Homepage hero */
+.hero {
+  text-align: center;
+  padding: 3rem 1rem 2rem;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.hero-subtitle {
+  font-size: 1.15rem;
+  max-width: 600px;
+  margin: 0 auto 1.5rem;
+  opacity: 0.8;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hero-btn {
+  display: inline-block;
+  padding: 0.6rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: opacity 0.15s;
+}
+
+.hero-btn:hover {
+  opacity: 0.85;
+}
+
+.hero-btn--secondary {
+  background: transparent;
+  border: 1px solid var(--sl-color-gray-3);
+  color: inherit;
+}
+
+/* Dark mode: hero button */
+[data-theme="dark"] .hero-btn {
+  background: var(--sl-color-gray-2);
+  color: var(--sl-color-white);
+}
+
+[data-theme="dark"] .hero-btn--secondary {
+  background: transparent;
+  border-color: var(--sl-color-gray-4);
+  color: var(--sl-color-gray-2);
+}
+
+/* Light mode: hero button */
+[data-theme="light"] .hero-btn,
+:root:not([data-theme]) .hero-btn {
+  background: var(--sl-color-gray-7);
+  color: var(--sl-color-white);
+}
+
+/* Section cards */
+.section-cards {
+  padding: 2rem 0;
+}
+
+.section-cards h2 {
+  margin-bottom: 1rem;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  display: block;
+  padding: 1.25rem;
+  border-radius: 8px;
+  border: 1px solid var(--sl-color-gray-5);
+  text-decoration: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.card:hover {
+  border-color: var(--sl-color-gray-3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="dark"] .card:hover {
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.06);
+}
+
+.card h3 {
+  margin: 0 0 0.4rem;
+  font-size: 1.05rem;
+}
+
+.card p {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+/* Updates placeholder */
+.updates {
+  padding: 2rem 0;
+}
+
+.updates-placeholder {
+  opacity: 0.5;
+  font-style: italic;
+}
+
+/* Button-style links */
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background: var(--sl-color-gray-7);
+  color: var(--sl-color-white);
+}
+
+.btn-primary:hover {
+  opacity: 0.85;
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 1px solid var(--sl-color-gray-5);
+  color: inherit;
+}
+
+.btn-secondary:hover {
+  border-color: var(--sl-color-gray-3);
+}
+
+[data-theme="dark"] .btn-primary {
+  background: var(--sl-color-gray-2);
+  color: var(--sl-color-white);
+}
+
+[data-theme="dark"] .btn-secondary {
+  border-color: var(--sl-color-gray-4);
+  color: var(--sl-color-gray-2);
+}
+
+/* Navigation buttons group */
+.btn-group {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}

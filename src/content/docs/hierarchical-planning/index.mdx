@@ -1,0 +1,27 @@
+---
+title: Hierarchical Planning & Task Decomposition
+---
+
+
+复杂智能体需要将高层目标分解为可执行的动作。本章涵盖用于结构化决策的实用架构，广泛用于游戏 AI 和机器人领域。
+
+## 推荐阅读顺序
+
+1. FSM — 最简单的结构化控制器
+2. Behavior Tree — 比 FSM 更灵活的替代方案
+3. HTN — 通过规划进行任务分解
+4. GOAP — 基于目标的动作规划
+
+
+<div class="btn-group">
+  <a href="./htn" class="btn btn-secondary">HTN</a>
+  <a href="./goap" class="btn btn-secondary">GOAP</a>
+  <a href="./behavior-tree" class="btn btn-secondary">Behavior Tree</a>
+  <a href="./fsm" class="btn btn-secondary">FSM</a>
+</div>
+
+## 与其他章节的关系
+
+- FSM 和 Behavior Tree 可以使用搜索算法（第 1 章）进行内部决策节点。
+- GOAP 使用 A*（第 1 章）进行规划构建。
+- HTN 分解可以在子任务层级纳入 MDP（第 3 章）。

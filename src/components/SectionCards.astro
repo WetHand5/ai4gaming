@@ -1,0 +1,19 @@
+---
+interface Props {
+  chapters: { title: string; href: string; desc: string }[];
+}
+const { chapters } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+
+<section class="section-cards">
+  <h2>按章节浏览</h2>
+  <div class="cards-grid">
+    {chapters.map((ch) => (
+      <a href={`${base}/${ch.href.replace(/^\//, '')}`} class="card">
+        <h3>{ch.title}</h3>
+        <p>{ch.desc}</p>
+      </a>
+    ))}
+  </div>
+</section>

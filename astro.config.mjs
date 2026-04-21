@@ -22,6 +22,7 @@ export default defineConfig({
           label: '1. 搜索算法',
           items: [
             { label: '章节概览', link: '/search-algorithms/' },
+            { label: 'Hello-Gaming', link: '/search-algorithms/hello-gaming' },
             { label: 'Minimax', link: '/search-algorithms/minimax' },
             { label: 'Alpha-Beta 剪枝', link: '/search-algorithms/alpha-beta' },
             { label: 'Expectimax', link: '/search-algorithms/expectimax' },
@@ -93,15 +94,13 @@ export default defineConfig({
             { label: 'FSM', link: '/hierarchical-planning/fsm' },
           ],
         },
+
         {
-          label: '示例',
-          link: '/examples/',
-        },
-        {
-          label: '模板',
+          label: '相关项目',
           items: [
-            { label: '概念模板', link: '/templates/concept-template' },
-            { label: '演示模板', link: '/templates/demo-template' },
+          { label: '章节概览', link: '/projs/' },
+          { label: 'VLA for StarCraft2 mini-games', link: '/projs/vla_sc2' },
+            
           ],
         },
       ],

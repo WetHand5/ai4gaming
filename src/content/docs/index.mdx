@@ -7,11 +7,14 @@ import Hero from '../../components/Hero.astro';
 import SectionCards from '../../components/SectionCards.astro';
 import UpdatePlaceholder from '../../components/UpdatePlaceholder.astro';
 
+
 <Hero
   title="AI Gaming Strategies"
-  subtitle="系统学习 AI 规划、博弈与决策的算法和技术。"
+  subtitle="系统学习 AI 规划、博弈与决策的算法和技术。同时也要玩得开心！"
 />
 
+
+<h2>按章节浏览</h2>
 <SectionCards
   chapters={[
     { title: '搜索算法', href: '/search-algorithms/', desc: 'Minimax, A*, Alpha-Beta 等' },
@@ -21,6 +24,13 @@ import UpdatePlaceholder from '../../components/UpdatePlaceholder.astro';
     { title: '不完全信息', href: '/incomplete-information/', desc: 'CFR, MCCFR' },
     { title: '多智能体与博弈论', href: '/multi-agent/', desc: 'Nash, Best Response, Fictitious Play' },
     { title: '层次化规划', href: '/hierarchical-planning/', desc: 'HTN, GOAP, Behavior Trees, FSM' },
+  ]}
+/>
+
+<h2>相关项目</h2>
+<SectionCards
+  chapters={[
+    { title: 'VLA for StarCraft2 mini-game', href: '/projs/vla_sc2', desc: 'FindAndDefeatZerglings' },
   ]}
 />
 

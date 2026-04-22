@@ -1,0 +1,42 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  chapter?: string;
+  level?: number;
+}
+const { title, subtitle, chapter, level } = Astro.props;
+const base = import.meta.env.BASE_URL;
+
+const levelColors: Record<number, string> = {
+  1: 'var(--pixel-cyan)',
+  2: 'var(--pixel-purple)',
+  3: 'var(--pixel-amber)',
+};
+---
+
+<section class="page-header">
+  <div class="page-header-frame">
+    <div class="page-header-top">
+      {chapter && (
+        <span class="page-chapter">
+          <span class="chapter-icon">◈</span>
+          <span class="chapter-name">{chapter}</span>
+        </span>
+      )}
+      {level && (
+        <span class="page-level" style={`--level-color: ${levelColors[level] || levelColors[1]}`}>
+          LV.{String(level).padStart(2, '0')}
+        </span>
+      )}
+    </div>
+
+    <h1 class="page-title">{title}</h1>
+    {subtitle && <p class="page-subtitle">{subtitle}</p>}
+
+    <div class="page-header-bottom">
+      <span class="page-status">● ACTIVE</span>
+      <span class="page-date">2026.04</span>
+    </div>
+  </div>
+</section>

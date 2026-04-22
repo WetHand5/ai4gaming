@@ -1,0 +1,27 @@
+---
+interface Props {
+  milestones: { title: string; status: 'done' | 'current' | 'todo' }[];
+}
+const { milestones } = Astro.props;
+---
+
+<section class="milestone-tracker">
+  <div class="milestone-header">
+    <span class="milestone-icon">▣</span>
+    <span class="milestone-title">PROGRESS</span>
+  </div>
+
+  <div class="milestone-track">
+    {milestones.map((m, i) => (
+      <div class:list={['milestone', `milestone--${m.status}`]}>
+        <div class="milestone-node">
+          {m.status === 'done' && <span class="node-check">✓</span>}
+          {m.status === 'current' && <span class="node-active">●</span>}
+          {m.status === 'todo' && <span class="node-empty">○</span>}
+        </div>
+        <span class="milestone-name">{m.title}</span>
+        {i < milestones.length - 1 && <div class="milestone-line"></div>}
+      </div>
+    ))}
+  </div>
+</section>

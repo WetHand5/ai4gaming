@@ -1,0 +1,58 @@
+---
+interface Props {
+  title: string;
+  status?: 'active' | 'completed' | 'paused';
+  tags?: string[];
+  startDate?: string;
+  lastUpdate?: string;
+}
+const { title, status = 'active', tags = [], startDate, lastUpdate } = Astro.props;
+
+const statusConfig: Record<string, { label: string; icon: string; class: string }> = {
+  'active': { label: 'IN PROGRESS', icon: '▸', class: 'status-active' },
+  'completed': { label: 'COMPLETED', icon: '✓', class: 'status-completed' },
+  'paused': { label: 'PAUSED', icon: '⏸', class: 'status-paused' },
+};
+
+const config = statusConfig[status];
+---
+
+<section class="project-header">
+  <div class="project-frame">
+    <div class="project-top-bar">
+      <span class="project-label">
+        <span class="label-icon">★</span>
+        <span>PROJECT</span>
+      </span>
+      <span class:list={['project-status', config.class]}>
+        <span class="status-icon">{config.icon}</span>
+        <span class="status-label">{config.label}</span>
+      </span>
+    </div>
+
+    <h1 class="project-title">{title}</h1>
+
+    <div class="project-meta">
+      {startDate && (
+        <div class="meta-item">
+          <span class="meta-label">STARTED</span>
+          <span class="meta-value">{startDate}</span>
+        </div>
+      )}
+      {lastUpdate && (
+        <div class="meta-item">
+          <span class="meta-label">UPDATED</span>
+          <span class="meta-value">{lastUpdate}</span>
+        </div>
+      )}
+    </div>
+
+    {tags.length > 0 && (
+      <div class="project-tags">
+        {tags.map((tag) => (
+          <span class="project-tag">{tag}</span>
+        ))}
+      </div>
+    )}
+  </div>
+</section>

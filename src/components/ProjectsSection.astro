@@ -1,0 +1,37 @@
+---
+interface Props {
+  projects: { title: string; href: string; desc: string; status?: string }[];
+}
+const { projects } = Astro.props;
+const base = import.meta.env.BASE_URL;
+
+const statusColors: Record<string, string> = {
+  'active': 'status-active',
+  'wip': 'status-wip',
+  'done': 'status-done',
+};
+---
+
+<section class="projects-section">
+  <div class="projects-header">
+    <span class="projects-label">◈ ACTIVE MISSIONS</span>
+  </div>
+  <div class="projects-grid">
+    {projects.map((proj, i) => (
+      <a
+        href={`${base}/${proj.href.replace(/^\//, '')}`}
+        class="project-card"
+      >
+        <div class="project-index">0{i + 1}</div>
+        <div class="project-content">
+          <h3 class="project-title">{proj.title}</h3>
+          <p class="project-desc">{proj.desc}</p>
+        </div>
+        <div class="project-status">
+          <span class:list={['status-dot', statusColors[proj.status || 'active']]}></span>
+          <span class="status-text">{proj.status || 'ACTIVE'}</span>
+        </div>
+      </a>
+    ))}
+  </div>
+</section>

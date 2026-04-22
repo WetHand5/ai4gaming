@@ -1,0 +1,95 @@
+---
+title: 用视觉-语言-动作模型玩森林冰火人小游戏
+---
+
+import ProjectHeader from '../../../components/ProjectHeader.astro';
+import MilestoneTracker from '../../../components/MilestoneTracker.astro';
+import ContentBlock from '../../../components/ContentBlock.astro';
+import ChapterNav from '../../../components/ChapterNav.astro';
+
+<ProjectHeader
+  title="VLA for FireboyAndWatergirl"
+  status="active"
+  tags={['VLA', 'Game AI', 'Multi-Agent']}
+  startDate="2026-04-21"
+  lastUpdate="2026-04-22"
+/>
+
+<MilestoneTracker
+  milestones={[
+    { title: '项目调研与方案设计', status: 'done' },
+    { title: '游戏环境搭建', status: 'current' },
+    { title: 'VLA 模型集成', status: 'todo' },
+    { title: '多智能体协作', status: 'todo' },
+    { title: 'Demo 发布', status: 'todo' },
+  ]}
+/>
+
+---
+
+### 一些背景
+
+>&emsp;&emsp;4月20日晚上，学校有个挺有意思的活动开放报名，主题是"崩坏IP-AI驱动下的游戏工业化管线升级"，主要分享三个方向的内容
+
+>&emsp;&emsp;一个是AI Agent,用自研的Agent驱动游戏研发进程
+
+>&emsp;&emsp;一个是AI Gameplay &AI NPC,带来AI Native的游戏互动体验
+
+>&emsp;&emsp;另一个是AIGC拓展创意边界与解放生产力
+
+&emsp;&emsp;我现在当然是对AI Gameplay很感兴趣，而且有很多困惑，跟一个朋友聊到这个话题，他说很巧他那天面试的一个岗位就是ai npc相关的。
+
+&emsp;&emsp;4月21日下午，他突然抛出一个做小项目的idea：搭建一个可以和用户协作游玩森林冰火人小游戏的ai框架。
+
+&emsp;&emsp;不知道你们有没有听说过bilibili上5.20这一天自己一个人玩森林冰火人的"传统"，当时我刚从游泳馆出来，身体虽然有些疲惫，但是仍然觉得充满了干劲
+
+&emsp;&emsp;要是能在520之前做出一个让所有人都可以打开即玩的小demo,感觉是一件很有意思的事情。
+
+&emsp;&emsp;说干就干，电动车拧到最快，倒春寒时期的冷风吹在我湿漉漉的头发上，让我有些微微发抖
+
+### 初步尝试
+
+&emsp;&emsp;说到初步的设计，朋友说希望是能够让用户填入api就可以游玩是最好的。
+
+&emsp;&emsp;我当时的想法是，那就看看一些vlm api的效果怎么样。因为我也刚入门vla,浅浅地看了一些论文，现在的vla基本是拿已经训练好的vlm当作骨架，然后在把vision和language语义融合后的layer后面接上动作网络生成动作。
+
+<ContentBlock title="OpenVLA 方案" type="info">
+<h4>OpenVLA方案</h4>
+&emsp;&emsp;在OpenVLA的论文中，整个网络是把机器人的动作离散成了一个个动作token,然后输入当前观测和语言指令之后，动作生成就是一个标准的Next-Token-Prediction的任务
+
+&emsp;&emsp;更具体地说，OpenVLA的基础框架是"Vision-Language Model + Action Tokenization"
+它的视觉侧来自融合的DINOv2和SigLIP编码器，语言侧是Llama2,训练后这个模型不再用于通用文本生成，而是专门用来生成动作。
+
+&emsp;&emsp;在动作的表示上，OpenVLA的原始版本采用的是非常直接的均匀离散化：每个连续动作维度先归一化到[-1,1],然后均匀切成256个bin,把每个bin映射成一个离散的token。后续文献在讨论OpenVLA的时候也把它概括为256-bin action discretization或者discrete action tokens optimized via next-token prediction
+这意味着它本质生不是在学一个连续密度或者速度场，而是在学条件分布：
+
+$$
+p(a_1, a_2, \dots, a_K \mid o, \text{instruction})
+$$
+
+并且按从左到右的方式展开成：
+$$
+\prod_{k=1}^{K} p(a_k \mid a_{<k}, o,\text{instruction})
+$$
+
+&emsp;&emsp;OpenVLA用的是标准交叉熵损失：真值连续动作先被量化成离散的token序列，模型看到"图像+指令+前面已知的token"去预测下一个正确的动作token。整个训练形式和语言模型的Instruction Tuning非常接近，只不过输出空间从自然语言token换成了动作token。很多后续综述和与OpenVLA相关工作都把它归类为"自回归（Autoregressive）VLA"
+
+&emsp;&emsp;推理的时候，OpenVLA模型更像是普通的decoder-only模型：输入当前图像和任务文本后，模型逐个生成动作token,再把这些token反量化回连续控制量，交给机器人执行。
+
+&emsp;&emsp;由于原始OpenVLA不做**Action Chunking**,项目中专门提醒他会对停顿或者很小的动作较为敏感，这也是后来FAST,OFT这些工作继续改进动作表示和推理效率的原因。Action Chunking的思想就是让一次推理能够生成多个动作，很自然地，如果做step by step推理的话，对推理速度的要求太高，会对系统造成很大的决策负担，并且每次只预测一步很容易出现**局部贪心**，比如"这一帧往左偏一点，下一帧又往右偏一点"动作不平滑。反过来如果让系统一次预测一段动作序列，会强迫模型在短时间内保持内部一致性，所以轨迹通常更顺。ACT论文系列把这种方法和更coherent的行为联系在一起。
+</ContentBlock>
+
+<ContentBlock title="π₀ 方案" type="tip">
+<h4>$\pi_0$方案</h4>
+&emsp;&emsp;在$\pi_0$的论文中这个动作网络是
+</ContentBlock>
+
+<ContentBlock title="待续" type="warning">
+# to be continued 26/04/22
+</ContentBlock>
+
+---
+
+<ChapterNav
+  parent={{ title: '项目列表', href: '/projs/' }}
+/>

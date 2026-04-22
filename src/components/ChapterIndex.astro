@@ -1,0 +1,67 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  lessons: { title: string; href: string; status?: 'done' | 'wip' | 'todo' }[];
+  relations?: { title: string; href: string }[];
+}
+const { title, description, lessons, relations } = Astro.props;
+const base = import.meta.env.BASE_URL;
+
+const statusIcons: Record<string, string> = {
+  'done': '✓',
+  'wip': '▸',
+  'todo': '○',
+};
+
+const statusClasses: Record<string, string> = {
+  'done': 'status-done',
+  'wip': 'status-wip',
+  'todo': 'status-todo',
+};
+---
+
+<section class="chapter-index">
+  <div class="chapter-header">
+    <div class="chapter-badge">CHAPTER</div>
+    <h2 class="chapter-title">{title}</h2>
+    {description && <p class="chapter-desc">{description}</p>}
+  </div>
+
+  <div class="lessons-section">
+    <div class="lessons-header">
+      <span class="lessons-label">▓ LESSONS</span>
+      <span class="lessons-count">{lessons.filter(l => l.status === 'done').length}/{lessons.length} COMPLETE</span>
+    </div>
+
+    <div class="lessons-list">
+      {lessons.map((lesson, i) => (
+        <a
+          href={`${base}/${lesson.href.replace(/^\//, '')}`}
+          class:list={['lesson-item', statusClasses[lesson.status || 'todo']]}
+        >
+          <span class="lesson-number">{String(i + 1).padStart(2, '0')}</span>
+          <span class="lesson-status">{statusIcons[lesson.status || 'todo']}</span>
+          <span class="lesson-title">{lesson.title}</span>
+          <span class="lesson-arrow">→</span>
+        </a>
+      ))}
+    </div>
+  </div>
+
+  {relations && relations.length > 0 && (
+    <div class="relations-section">
+      <div class="relations-header">
+        <span class="relations-label">◈ RELATED CHAPTERS</span>
+      </div>
+      <div class="relations-list">
+        {relations.map((rel) => (
+          <a href={`${base}/${rel.href.replace(/^\//, '')}`} class="relation-link">
+            <span class="relation-icon">⬡</span>
+            <span class="relation-title">{rel.title}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  )}
+</section>

@@ -2,38 +2,26 @@
 title: Search Algorithms
 ---
 
+import ChapterIndex from '../../../components/ChapterIndex.astro';
 
-搜索算法是博弈和规划中 AI 决策的基础。本章涵盖确定性搜索与对抗性搜索，从经典的博弈树算法到图搜索方法。
-
-## 推荐阅读顺序
-
-0. Hello-Gaming — 写在前面
-1. Minimax — 理解对抗性搜索
-2. Alpha-Beta Pruning — 使 Minimax 实用化
-3. Expectimax — 处理不确定性
-4. Iterative Deepening — 时间受限的搜索
-5. Transposition Table — 避免重复计算
-6. Move Ordering — 提升剪枝效率
-7. A* — 启发式图搜索
-8. IDA* — 内存受限的 A*
-9. Dijkstra — 最短路径基础
-
-
-<div class="btn-group">
-  <a href="./hello-gaming" class="btn btn-secondary">Hello-Gaming</a>
-  <a href="./minimax" class="btn btn-secondary">Minimax</a>
-  <a href="./alpha-beta" class="btn btn-secondary">Alpha-Beta Pruning</a>
-  <a href="./expectimax" class="btn btn-secondary">Expectimax</a>
-  <a href="./iterative-deepening" class="btn btn-secondary">Iterative Deepening</a>
-  <a href="./transposition-table" class="btn btn-secondary">Transposition Table</a>
-  <a href="./move-ordering" class="btn btn-secondary">Move Ordering</a>
-  <a href="./a-star" class="btn btn-secondary">A*</a>
-  <a href="./ida-star" class="btn btn-secondary">IDA*</a>
-  <a href="./dijkstra" class="btn btn-secondary">Dijkstra</a>
-</div>
-
-## 与其他章节的关系
-
-- MCTS（第 2 章）通过采样而非完全展开来扩展搜索。
-- Value Iteration（第 3 章）可视为在具有概率转移的状态空间上的搜索。
-- Q-Learning（第 3 章）从经验中学习相同的结构。
+<ChapterIndex
+  title="Search Algorithms"
+  description="搜索算法是博弈和规划中 AI 决策的基础。本章涵盖确定性搜索与对抗性搜索，从经典的博弈树算法到图搜索方法。"
+  lessons={[
+    { title: 'Hello-Gaming — 写在前面', href: '/search-algorithms/hello-gaming', status: 'wip' },
+    { title: 'Minimax — 理解对抗性搜索', href: '/search-algorithms/minimax', status: 'todo' },
+    { title: 'Alpha-Beta Pruning — 使 Minimax 实用化', href: '/search-algorithms/alpha-beta', status: 'todo' },
+    { title: 'Expectimax — 处理不确定性', href: '/search-algorithms/expectimax', status: 'todo' },
+    { title: 'Iterative Deepening — 时间受限的搜索', href: '/search-algorithms/iterative-deepening', status: 'todo' },
+    { title: 'Transposition Table — 避免重复计算', href: '/search-algorithms/transposition-table', status: 'todo' },
+    { title: 'Move Ordering — 提升剪枝效率', href: '/search-algorithms/move-ordering', status: 'todo' },
+    { title: 'A* — 启发式图搜索', href: '/search-algorithms/a-star', status: 'todo' },
+    { title: 'IDA* — 内存受限的 A*', href: '/search-algorithms/ida-star', status: 'todo' },
+    { title: 'Dijkstra — 最短路径基础', href: '/search-algorithms/dijkstra', status: 'todo' },
+  ]}
+  relations={[
+    { title: 'MCTS', href: '/monte-carlo-tree-search/' },
+    { title: 'Value Iteration', href: '/dynamic-programming/value-iteration' },
+    { title: 'Q-Learning', href: '/dynamic-programming/q-learning' },
+  ]}
+/>

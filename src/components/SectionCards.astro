@@ -1,17 +1,40 @@
 ---
 interface Props {
   chapters: { title: string; href: string; desc: string }[];
+  variant?: 'default' | 'projects';
 }
-const { chapters } = Astro.props;
+const { chapters, variant = 'default' } = Astro.props;
 const base = import.meta.env.BASE_URL;
+
+const icons: Record<string, string> = {
+  '搜索算法': '⬡',
+  '蒙特卡洛树搜索': '◈',
+  '动态规划': '◇',
+  '强化学习': '◆',
+  '不完全信息': '◎',
+  '多智能体与博弈论': '⬢',
+  '层次化规划': '▣',
+  'VLA for FireboyAndWatergirl': '🔥',
+  'VLA for StarCraft2 mini-game': '⚔',
+};
 ---
 
-<section class="section-cards">
+<section class:list={['section-cards', `section-cards--${variant}`]}>
   <div class="cards-grid">
-    {chapters.map((ch) => (
-      <a href={`${base}/${ch.href.replace(/^\//, '')}`} class="card">
-        <h3>{ch.title}</h3>
-        <p>{ch.desc}</p>
+    {chapters.map((ch, i) => (
+      <a
+        href={`${base}/${ch.href.replace(/^\//, '')}`}
+        class:list={['card', `card--level-${(i % 3) + 1}`]}
+      >
+        <div class="card-header">
+          <span class="card-icon">{icons[ch.title] || '▸'}</span>
+          <span class="card-level">LV.{String(i + 1).padStart(2, '0')}</span>
+        </div>
+        <h3 class="card-title">{ch.title}</h3>
+        <p class="card-desc">{ch.desc}</p>
+        <div class="card-footer">
+          <span class="card-enter">ENTER →</span>
+        </div>
       </a>
     ))}
   </div>

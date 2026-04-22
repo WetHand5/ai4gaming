@@ -2,14 +2,31 @@
 title: Concept Template
 ---
 
+import PageHeader from '../../../components/PageHeader.astro';
+import ChapterNav from '../../../components/ChapterNav.astro';
+import ContentBlock from '../../../components/ContentBlock.astro';
+
+<PageHeader
+  title="Concept Template"
+  chapter="CHAPTER NAME"
+  level={1}
+/>
 
 在添加新的概念/算法页面时使用此模板。
+
+<ChapterNav
+  parent={{ title: '章节目录', href: '/chapter-name/' }}
+/>
 
 ---
 
 ## 解决什么问题？
 
 {/* 描述此算法所针对的问题类别。 */}
+
+<ContentBlock title="问题背景" type="info">
+{/* 补充说明 */}
+</ContentBlock>
 
 ## 核心思想
 
@@ -25,9 +42,11 @@ title: Concept Template
 
 ## 伪代码
 
+<ContentBlock title="伪代码" type="code">
 ```
 // 伪代码写在这里
 ```
+</ContentBlock>
 
 ## 复杂度
 
@@ -38,11 +57,15 @@ title: Concept Template
 
 ## 优势与局限
 
-**优势：**
--
+<ContentBlock title="优势" type="tip">
+- 优势点 1
+- 优势点 2
+</ContentBlock>
 
-**局限：**
--
+<ContentBlock title="局限" type="warning">
+- 局限点 1
+- 局限点 2
+</ContentBlock>
 
 ## 与其他算法的关系
 
@@ -59,3 +82,10 @@ title: Concept Template
 ## 参考文献
 
 -
+
+---
+
+<ChapterNav
+  prev={{ title: '上一节', href: '/chapter-name/prev/' }}
+  next={{ title: '下一节', href: '/chapter-name/next/' }}
+/>

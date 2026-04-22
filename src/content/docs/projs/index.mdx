@@ -2,20 +2,13 @@
 title: 相关项目
 ---
 
+import ChapterIndex from '../../../components/ChapterIndex.astro';
 
-搜索算法是博弈和规划中 AI 决策的基础。本章涵盖确定性搜索与对抗性搜索，从经典的博弈树算法到图搜索方法。
-
-## 推荐阅读顺序
-
-
-1. VLA for StarCraft2 mini-games — 用VLA玩转StarCraft2
-
-
-
-<div class="btn-group">
-  <a href="./vla_sc2" class="btn btn-secondary">VLA for SC2</a>
-
-</div>
-
-
-
+<ChapterIndex
+  title="Projects"
+  description="将 AI 算法应用于实际游戏项目，从理论到实践的探索。"
+  lessons={[
+    { title: 'VLA for FireboyAndWatergirl — 520不再一个人玩', href: '/projs/vla_fb_wg', status: 'wip' },
+    { title: 'VLA for StarCraft2 mini-game — FindAndDefeatZerglings', href: '/projs/vla_sc2', status: 'todo' },
+  ]}
+/>

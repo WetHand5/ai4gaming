@@ -8,10 +8,45 @@ const base = import.meta.env.BASE_URL;
 ---
 
 <section class="hero">
-  <h1 class="hero-title">{title}</h1>
-  <p class="hero-subtitle">{subtitle}</p>
+  <div class="hero-hud">
+    <div class="hero-hud-corner hero-hud-corner--tl"></div>
+    <div class="hero-hud-corner hero-hud-corner--tr"></div>
+    <div class="hero-hud-corner hero-hud-corner--bl"></div>
+    <div class="hero-hud-corner hero-hud-corner--br"></div>
+
+    <div class="hero-hud-top">
+      <span class="hero-hud-label">SYSTEM</span>
+      <span class="hero-hud-status">ONLINE</span>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-pixel-art">
+        <span class="pixel-bracket">[</span>
+        <span class="pixel-ai">AI</span>
+        <span class="pixel-bracket">]</span>
+      </div>
+      <h1 class="hero-title">{title}</h1>
+      <p class="hero-subtitle">{subtitle}</p>
+    </div>
+
+    <div class="hero-hud-bottom">
+      <span class="hero-hud-coords">SECTOR: LEARNING</span>
+      <span class="hero-hud-version">v2026.04</span>
+    </div>
+  </div>
+
   <div class="hero-actions">
-    <a href={`${base}/search-algorithms/`} class="hero-btn">Start Learning</a>
-    <a href={`${base}/roadmap/`} class="hero-btn hero-btn--secondary">Roadmap</a>
+    <a href={`${base}/search-algorithms/`} class="hero-btn hero-btn--primary">
+      <span class="btn-icon">▶</span>
+      <span class="btn-text">Start Learning</span>
+    </a>
+    <a href={`${base}/roadmap/`} class="hero-btn hero-btn--secondary">
+      <span class="btn-icon">◇</span>
+      <span class="btn-text">Roadmap</span>
+    </a>
+    <a href={`${base}/projs/vla_fb_wg`} class="hero-btn hero-btn--secondary">
+      <span class="btn-icon">★</span>
+      <span class="btn-text">Projects</span>
+    </a>
   </div>
 </section>

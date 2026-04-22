@@ -1,30 +1,42 @@
 ---
 title: 写在前面
 ---
+
+import PageHeader from '../../../components/PageHeader.astro';
+import ChapterNav from '../../../components/ChapterNav.astro';
+import ContentBlock from '../../../components/ContentBlock.astro';
+
+<PageHeader
+  title="写在前面"
+  chapter="Search Algorithms"
+  level={0}
+/>
+
 >&emsp;&emsp;游戏，是理解智能的一块天然试验场。
 
 >&emsp;&emsp;在这里，规则是清晰的，反馈是直接的，策略、规划、博弈与决策都会以一种非常具体的方式呈现出来。
 
 >&emsp;&emsp;我创建这个网站的初心很简单：系统学习 AI 规划、博弈与决策的算法和技术，同时也要玩得开心。
->希望把那些看起来抽象的概念——比如搜索、动态规划、强化学习、多智能体博弈——放回到游戏这个直观的场景里，一点点拆开、理解，再重新组织起来。
+希望把那些看起来抽象的概念——比如搜索、动态规划、强化学习、多智能体博弈——放回到游戏这个直观的场景里，一点点拆开、理解，再重新组织起来。
 
 >&emsp;&emsp;从第 0 章开始，重新认识 gaming，也重新认识智能。
----
-
-1
 
 ---
+
+## 1. 游戏作为试验场
+
 >&emsp;&emsp;在进入到具体的算法之前，我们不如先来实现几个简单的小游戏，作为之后执行我们算法的试验场。
 
-## 井字棋
+### 井字棋
+
 | X | O |   |
 |---|---|---|
 |   | X |   |
 | O |   | X |
 
-&emsp;&emsp;相信这个游戏大家一定都玩过，提起这个游戏，笔者总能想起小学的时候和同学在铺满土黄色泥沙的操场上用旁边散落的短截树枝写写画画的那些日子。
-这个游戏的规则简单，变化不多，没有很复杂的博弈，虽然现在看起来小儿科，但是当时确实能不带脑子地玩得很起劲。
+&emsp;&emsp;相信这个游戏大家一定都玩过，提起这个游戏，笔者总能想起小学的时候和同学在铺满土黄色泥沙的操场上用旁边散落的短截树枝写写画画的那些日子。这个游戏的规则简单，变化不多，没有很复杂的博弈，虽然现在看起来小儿科，但是当时确实能不带脑子地玩得很起劲。
 
+<ContentBlock title="游戏特性分析" type="info">
 &emsp;&emsp;井字棋最多九步就能下完，说明这个游戏是**有限**的
 
 &emsp;&emsp;我们在下任何一步棋的时候，所有玩家都知道：
@@ -38,19 +50,28 @@ title: 写在前面
 >&emsp;&emsp;4.不存在只被某个玩家单独掌握，并且会影响决策结果的隐藏状态
 
 &emsp;&emsp;这说明井字棋是**完全信息**的博弈，我们后面会实现另一种**不完全信息**的博弈
+</ContentBlock>
 
-&emsp;&emsp;现在让我们来玩这个游戏的话，即使我们不知道什么技巧，也可以粗暴地讲每一种落子之后的可能性枚举出来，选出对我们最有利的一种
-下法，所以井字棋是一个**可完全求解**的游戏（solvable game），严格一点说，**可完全求解**的本质是**存在一个严格正确的、覆盖完整博弈空间的最优性描述**
+<ContentBlock title="可完全求解" type="tip">
+&emsp;&emsp;现在让我们来玩这个游戏的话，即使我们不知道什么技巧，也可以粗暴地讲每一种落子之后的可能性枚举出来，选出对我们最有利的一种下法，所以井字棋是一个**可完全求解**的游戏（solvable game），严格一点说，**可完全求解**的本质是**存在一个严格正确的、覆盖完整博弈空间的最优性描述**
+
 **solvable game**的含义则是**该游戏的最优值和最优策略在某种完整意义下可被计算或证明**
 
 &emsp;&emsp;我们一般不说围棋是可完全求解的游戏，因为围棋虽然规则明确，理论上也是有限博弈，但是状态空间巨大到无法现实地完全求解
+</ContentBlock>
 
-&emsp;&emsp;另外棋类游戏的本质决定了井字棋是**离散状态动作**的游戏，与之相异的某些赛车游戏
-的状态可能是 [位置x,y; 速度v; 朝向角度θ] 这些量通常可以取实数。那从理论上说，可能状态不是“一个个格子”，而是连续空间中的点。这就是连续状态。
+<ContentBlock title="离散 vs 连续" type="warning">
+&emsp;&emsp;另外棋类游戏的本质决定了井字棋是**离散状态动作**的游戏，与之相异的某些赛车游戏的状态可能是 [位置x,y; 速度v; 朝向角度θ] 这些量通常可以取实数。那从理论上说，可能状态不是"一个个格子"，而是连续空间中的点。这就是连续状态。
+</ContentBlock>
+
+---
+
+## 2. 代码实现
 
 &emsp;&emsp;好了说了这么多，我们先来着手实现一个简单的井字棋游戏吧。语言我们就选择python。
 
 &emsp;&emsp;首先对于这个游戏，我们先给它抽象出一个井字棋类：
+
 ```python
 from dataclasses import dataclass
 from typing import List, Optional, Tuple
@@ -77,10 +98,16 @@ class TicTacToe:
             print()
 
 ```
-&emsp;&emsp;暂时包含一个3*3棋盘，和两个玩家，clone()函数的作用是生成一个新的棋盘对象，这样之后我们
 
+&emsp;&emsp;暂时包含一个3*3棋盘，和两个玩家，clone()函数的作用是生成一个新的棋盘对象，这样之后我们...
+
+<ContentBlock title="待续" type="warning">
 >to be continued...
+</ContentBlock>
+
 ---
-<div class="btn-group">
-  <a href="./" class="btn btn-secondary">← 返回搜索算法</a>
-</div>
+
+<ChapterNav
+  parent={{ title: '搜索算法', href: '/search-algorithms/' }}
+  next={{ title: 'Minimax', href: '/search-algorithms/minimax' }}
+/>

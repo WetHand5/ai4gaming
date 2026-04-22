@@ -1,10 +1,53 @@
 ---
+interface UpdateItem {
+  date: string;
+  title: string;
+  href?: string;
+  tag?: string;
+}
+interface Props {
+  updates?: UpdateItem[];
+}
+const { updates = [
+  { date: '2026-04-22', title: '新增项目: VLA for FireboyAndWatergirl', href: '/projs/vla_fb_wg', tag: 'NEW' },
+  { date: '2026-04-20', title: '你好，让我们开始游戏！', href: '/search-algorithms/hello-gaming', tag: 'NEW' },
+  { date: '2026-04-19', title: '站点初始化完成', tag: 'SYS' },
+] } = Astro.props;
+const base = import.meta.env.BASE_URL;
+
+const tagColors: Record<string, string> = {
+  'NEW': 'tag-new',
+  'SYS': 'tag-sys',
+  'FIX': 'tag-fix',
+  'UPD': 'tag-upd',
+};
 ---
 
-<section class="updates">
-  <h2>最近更新</h2>
-  <p class="updates-placeholder">内容添加后将在此处显示更新。</p>
-  <div class="btn-group">
-  <a href="/ai4gaming/search-algorithms/hello-gaming" class="btn btn-secondary">📄 2026-04-20：你好，让我们开始游戏！</a>
-</div>
+<section class="updates-section">
+  <div class="updates-header">
+    <span class="updates-label">▓ PATCH NOTES</span>
+    <span class="updates-version">v0.1.x</span>
+  </div>
+
+  <div class="updates-list">
+    {updates.map((item) => (
+      <div class="update-item">
+        <span class="update-date">{item.date}</span>
+        {item.tag && (
+          <span class:list={['update-tag', tagColors[item.tag] || 'tag-default']}>{item.tag}</span>
+        )}
+        {item.href ? (
+          <a href={`${base}/${item.href.replace(/^\//, '')}`} class="update-link">
+            {item.title}
+          </a>
+        ) : (
+          <span class="update-text">{item.title}</span>
+        )}
+      </div>
+    ))}
+  </div>
+
+  <div class="updates-footer">
+    <span class="updates-more">查看完整更新日志 →</span>
+  </div>
 </section>

@@ -1,9 +1,15 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 
 export default defineConfig({
   site: 'https://wethand5.github.io',
   base: '/ai4gaming',
+  markdown: {
+    remarkPlugins: [remarkMath],
+    rehypePlugins: [rehypeKatex],
+  },
   integrations: [
     starlight({
       title: 'ai4gaming',
@@ -99,6 +105,7 @@ export default defineConfig({
           label: '相关项目',
           items: [
           { label: '章节概览', link: '/projs/' },
+          { label: 'VLA for FireboyAndWatergirl', link: '/projs/vla_fb_wg' },
           { label: 'VLA for StarCraft2 mini-games', link: '/projs/vla_sc2' },
             
           ],

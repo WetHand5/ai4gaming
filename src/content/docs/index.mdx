@@ -5,16 +5,21 @@ template: splash
 
 import Hero from '../../components/Hero.astro';
 import SectionCards from '../../components/SectionCards.astro';
+import MissionsPanel from '../../components/MissionsPanel.astro';
 import UpdatePlaceholder from '../../components/UpdatePlaceholder.astro';
-
 
 <Hero
   title="AI Gaming Strategies"
   subtitle="系统学习 AI 规划、博弈与决策的算法和技术。同时也要玩得开心！"
 />
 
+<MissionsPanel />
 
-<h2>按章节浏览</h2>
+<h2 class="section-title">
+  <span class="title-icon">◈</span>
+  <span>按章节浏览</span>
+</h2>
+
 <SectionCards
   chapters={[
     { title: '搜索算法', href: '/search-algorithms/', desc: 'Minimax, A*, Alpha-Beta 等' },
@@ -27,29 +32,61 @@ import UpdatePlaceholder from '../../components/UpdatePlaceholder.astro';
   ]}
 />
 
-<h2>相关项目</h2>
+<h2 class="section-title section-title--highlight">
+  <span class="title-icon">★</span>
+  <span>相关项目</span>
+</h2>
+
 <SectionCards
+  variant="projects"
   chapters={[
+    { title: 'VLA for FireboyAndWatergirl', href: '/projs/vla_fb_wg', desc: '520不再一个人玩:)' },
     { title: 'VLA for StarCraft2 mini-game', href: '/projs/vla_sc2', desc: 'FindAndDefeatZerglings' },
   ]}
 />
 
 <UpdatePlaceholder />
 
-## 快速链接
+<h2 class="section-title">
+  <span class="title-icon">◇</span>
+  <span>快速链接</span>
+</h2>
 
-<div class="btn-group">
-  <a href="./search-algorithms/" class="btn btn-secondary">开始学习</a>
-  <a href="./roadmap/" class="btn btn-secondary">学习路线</a>
-  <a href="./examples/" class="btn btn-secondary">代码示例</a>
+<div class="quick-links">
+  <a href="./search-algorithms/" class="quick-link">
+    <span class="quick-link-icon">▶</span>
+    <span class="quick-link-text">开始学习</span>
+  </a>
+  <a href="./roadmap/" class="quick-link">
+    <span class="quick-link-icon">◇</span>
+    <span class="quick-link-text">学习路线</span>
+  </a>
+  <a href="./examples/" class="quick-link">
+    <span class="quick-link-icon">⬡</span>
+    <span class="quick-link-text">代码示例</span>
+  </a>
 </div>
 
-> **注意：** 本站仍在建设中，内容将逐步添加——占位页面会随时间填充完善。
+<div class="site-notice">
+  <div class="notice-icon">ℹ</div>
+  <div class="notice-content">
+    <strong>注意：</strong>本站仍在建设中，内容将逐步添加——占位页面会随时间填充完善。
+  </div>
+</div>
 
 ---
 
-<div style="text-align: center; opacity: 0.7; font-size: 0.9rem; margin-top: 2rem;">
-
-**作者：** [WetHand5](https://github.com/WetHand5) | 本站由 GLM-5 / GLM-5.1 协助搭建
-
+<div class="site-footer">
+  <div class="footer-line"></div>
+  <div class="footer-content">
+    <span class="footer-author">
+      <span class="footer-label">AUTHOR:</span>
+      <a href="https://github.com/WetHand5" target="_blank" rel="noopener">WetHand5</a>
+    </span>
+    <span class="footer-divider">|</span>
+    <span class="footer-ai">
+      <span class="footer-label">ASSISTED BY:</span>
+      <span>GLM-5 / Claude</span>
+    </span>
+  </div>
 </div>

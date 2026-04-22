@@ -1,0 +1,42 @@
+---
+interface Mission {
+  name: string;
+  progress: number;
+  status: 'active' | 'locked' | 'complete';
+}
+const missions: Mission[] = [
+  { name: 'Search Algorithms', progress: 30, status: 'active' },
+  { name: 'MCTS & UCT', progress: 0, status: 'locked' },
+  { name: 'Reinforcement Learning', progress: 0, status: 'locked' },
+];
+---
+
+<section class="missions-section">
+  <div class="missions-panel">
+    <div class="panel-header">
+      <span class="panel-icon">▣</span>
+      <span class="panel-title">CURRENT MISSIONS</span>
+    </div>
+
+    <div class="missions-list">
+      {missions.map((m) => (
+        <div class:list={['mission-item', `mission--${m.status}`]}>
+          <div class="mission-name">
+            {m.status === 'locked' && <span class="mission-lock">🔒</span>}
+            {m.status === 'complete' && <span class="mission-check">✓</span>}
+            {m.status === 'active' && <span class="mission-active">▸</span>}
+            <span>{m.name}</span>
+          </div>
+          <div class="mission-bar">
+            <div class="mission-progress" style={`--progress: ${m.progress}%`}></div>
+          </div>
+          <span class="mission-percent">{m.progress}%</span>
+        </div>
+      ))}
+    </div>
+
+    <div class="panel-footer">
+      <span class="panel-hint">完成章节解锁新任务</span>
+    </div>
+  </div>
+</section>
